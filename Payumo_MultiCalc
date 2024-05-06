@@ -1,25 +1,68 @@
-// Define functions for basic mathematical operations
-function add(a, b) {
-    return a + b;
-}
+// Calculator.java
+public class Calculator {
 
-function subtract(a, b) {
-    return a - b;
-}
-
-function multiply(a, b) {
-    return a * b;
-}
-
-function divide(a, b) {
-    if (b === 0) {
-        return "Error: Division by zero";
+    public static double add(double num1, double num2) {
+        return num1 + num2;
     }
-    return a / b;
+
+    public static double subtract(double num1, double num2) {
+        return num1 - num2;
+    }
+
+    public static double multiply(double num1, double num2) {
+        return num1 * num2;
+    }
+
+    public static double divide(double num1, double num2) {
+        if (num2 == 0) {
+            throw new ArithmeticException("Cannot divide by zero");
+        }
+        return num1 / num2;
+    }
 }
 
-// Example usage
-console.log("Addition:", add(5, 3));
-console.log("Subtraction:", subtract(5, 3));
-console.log("Multiplication:", multiply(5, 3));
-console.log("Division:", divide(5, 0)); // Example of division by zero
+// Main.java
+import java.util.Scanner;
+
+public class Main {
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+
+        System.out.print("Enter first number: ");
+        double num1 = scanner.nextDouble();
+
+        System.out.print("Enter second number: ");
+        double num2 = scanner.nextDouble();
+
+        System.out.println("Choose operation: ");
+        System.out.println("1. Addition");
+        System.out.println("2. Subtraction");
+        System.out.println("3. Multiplication");
+        System.out.println("4. Division");
+
+        int choice = scanner.nextInt();
+
+        switch (choice) {
+            case 1:
+                System.out.println("Result: " + Calculator.add(num1, num2));
+                break;
+            case 2:
+                System.out.println("Result: " + Calculator.subtract(num1, num2));
+                break;
+            case 3:
+                System.out.println("Result: " + Calculator.multiply(num1, num2));
+                break;
+            case 4:
+                try {
+                    System.out.println("Result: " + Calculator.divide(num1, num2));
+                } catch (ArithmeticException e) {
+                    System.out.println("Error: " + e.getMessage());
+                }
+                break;
+            default:
+                System.out.println("Invalid choice");
+        }
+
+        scanner.close();
+    }
+}
